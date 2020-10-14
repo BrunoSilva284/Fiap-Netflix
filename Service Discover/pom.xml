@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fiap.netflix</groupId>
-    <artifactId>configserver</artifactId>
+    <artifactId>servicediscover</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>configserver</name>
-    <description>Config Server para o exercicio do case Netflix</description>
+    <name>servicediscover</name>
+    <description>Service Discover para o exercicio do case Netflix</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -38,12 +38,7 @@
         <!-- Service Discovery -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <!-- Config Server -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
 
