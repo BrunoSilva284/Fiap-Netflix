@@ -1,6 +1,6 @@
-package com.fiap.netflix.ticketengine.model;
+package com.fiap.netflix.suporte.model;
 
-import com.fiap.netflix.ticketengine.enums.TicketStatus;
+import com.fiap.netflix.suporte.enums.TicketStatus;
 
 public class Ticket {
 

@@ -4,19 +4,21 @@ package com.fiap.netflix.gateway.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Service
 public class GatewayService {
 
     @Autowired
-    private static DiscoveryClient discoveryClient;
+    private DiscoveryClient discoveryClient;
 
-    public static String getInstanceUri(String serviceName) {
+    public String getInstanceUri(String serviceName) {
         List<ServiceInstance> instances = discoveryClient.getInstances(serviceName);
 
-        if(instances.size() == 0){
+        if(instances.isEmpty()){
             throw new RuntimeException("No instances of: " + serviceName + " running!");
         } else {
             return instances.get(0).getUri().toString();

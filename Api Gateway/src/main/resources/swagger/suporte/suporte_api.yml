@@ -10,7 +10,6 @@ info:
   '
   version: "1.0.0"
   title: "TCD - Netflix"
-basePath: "/v1"
 tags:
   - name: "suporte"
     description: "Relatar problemas que podem estar acontecendo."
@@ -48,10 +47,10 @@ definitions:
   Problema:
     type: "object"
     properties:
-      id:
+      idFilme:
         type: "integer"
         format: "int64"
-      descricao:
+      descricaoErro:
         type: "string"
         description: "Descrição do problema"
       idUsuario:

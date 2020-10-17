@@ -87,7 +87,7 @@
                             <inputSpec>${basedir}/src/main/resources/swagger/api.yml</inputSpec>
                             <language>spring</language>
                             <apiPackage>com.fiap.netflix.gateway.suporte.api</apiPackage>
-                            <modelPackage>com.fiap.netflix.gateway.suporte.api.model</modelPackage>
+                            <modelPackage>com.fiap.netflix.gateway.suporte.model</modelPackage>
                             <generateSupportingFiles>false</generateSupportingFiles>
                         </configuration>
                     </execution>

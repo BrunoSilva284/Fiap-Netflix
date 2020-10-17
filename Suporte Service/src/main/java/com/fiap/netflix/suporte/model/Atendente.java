@@ -1,4 +1,4 @@
-package com.fiap.netflix.ticketengine.model;
+package com.fiap.netflix.suporte.model;
 
 public class Atendente {
 

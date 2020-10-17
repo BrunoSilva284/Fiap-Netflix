@@ -1,4 +1,4 @@
-package com.fiap.netflix.ticketengine.enums;
+package com.fiap.netflix.suporte.enums;
 
 public enum TicketStatus {
 
