@@ -1,10 +1,10 @@
-package com.fiap.netflix.configserver;
+package com.fiap.netflix.servicediscover;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ConfigserverApplicationTests {
+class ServiceDiscoverApplicationTests {
 
     @Test
     void contextLoads() {

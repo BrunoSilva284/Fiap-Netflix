@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fiap.netflix</groupId>
-    <artifactId>servicediscover</artifactId>
+    <artifactId>service-discover</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>servicediscover</name>
+    <name>service-discover</name>
     <description>Service Discover para o exercicio do case Netflix</description>
 
     <properties>
