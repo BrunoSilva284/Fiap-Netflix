@@ -3,11 +3,9 @@ package com.fiap.netflix.gateway.suporte.api;
 import com.fiap.netflix.gateway.service.GatewayService;
 import com.fiap.netflix.gateway.suporte.model.Problema;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.sun.org.apache.xml.internal.utils.URI;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +14,11 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
-
-
 @RestController
 public class SuporteApiController implements SuporteApi {
+
+    @Value("${suporte_criarChamadoUrl}")
+    private String suporteCriarChamadoUrl;
 
     @Autowired
     private GatewayService gatewayService;
@@ -29,7 +28,7 @@ public class SuporteApiController implements SuporteApi {
         String url = gatewayService.getInstanceUri("suporte-service");
 
         RestTemplate restTemplate = new RestTemplate();
-        url += "/suporte/reportar";
+        url += suporteCriarChamadoUrl;
 
         String restExchange = restTemplate.postForObject(url, body, String.class);
 
