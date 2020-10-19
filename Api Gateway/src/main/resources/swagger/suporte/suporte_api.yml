@@ -57,6 +57,3 @@ definitions:
         type: "integer"
         format: "int64"
         description: "Id do usuário que esta relatando o problema."
-      nomeUsuario:
-        type: "string"
-        description: "Nome do usuário que esta relatando o problema."

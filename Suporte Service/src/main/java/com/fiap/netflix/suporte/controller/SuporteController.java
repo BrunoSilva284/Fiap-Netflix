@@ -20,10 +20,23 @@ public class SuporteController implements SuporteApi {
     @Override
     @HystrixCommand(fallbackMethod = "suporteReportarError")
     public ResponseEntity<String> suporteReportarPost(@Valid Problema body) {
-        return new ResponseEntity<String>("tudo ok", HttpStatus.OK);
+        String retorno = suporteService.suporteReportarError(body);
+
+        if(retorno.equalsIgnoreCase("OK")) {
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        } else if (retorno.contains("ERR-1")){
+            return new ResponseEntity<>(retorno, HttpStatus.BAD_REQUEST);
+        } else {
+            throw new RuntimeException("Ocorreu um erro ao tentar cadastrar o problema.");
+        }
     }
 
+    /**
+     * Método para fallback
+     * @param body
+     * @return
+     */
     private ResponseEntity<String> suporteReportarError(Problema body) {
-        return new ResponseEntity<String>("Sem informações sobre esse item.", HttpStatus.OK);
+        return new ResponseEntity<>("Ocorreu um erro ao tentar cadastrar o problema.", HttpStatus.BAD_REQUEST);
     }
 }

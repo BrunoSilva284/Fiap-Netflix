@@ -1,13 +1,29 @@
 package com.fiap.netflix.suporte.model;
 
-import com.fiap.netflix.suporte.enums.TicketStatus;
+import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 public class Ticket {
 
+    @Id
+    @Column(name = "id_ticket")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String descricao;
-    private TicketStatus status;
+
+    @Column(name = "id_filme")
+    private Long idFilme;
+
+    @Column(name = "id_usuario")
     private Long idUsuario;
+
+    @Column(name = "desc_erro")
+    private String descricaoErro;
+
+    @Column(name = "data_criacao")
+    private Date dataCriacao;
+
+    @ManyToOne
     private Atendente atendente;
 
     public Long getId() {
@@ -18,20 +34,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Long getIdFilme() {
+        return idFilme;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public TicketStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TicketStatus status) {
-        this.status = status;
+    public void setIdFilme(Long idFilme) {
+        this.idFilme = idFilme;
     }
 
     public Long getIdUsuario() {
@@ -40,6 +48,22 @@ public class Ticket {
 
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getDescricaoErro() {
+        return descricaoErro;
+    }
+
+    public void setDescricaoErro(String descricaoErro) {
+        this.descricaoErro = descricaoErro;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Atendente getAtendente() {
