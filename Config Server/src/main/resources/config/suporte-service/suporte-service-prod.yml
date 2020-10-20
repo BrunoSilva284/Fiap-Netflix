@@ -13,3 +13,17 @@ spring.jpa.properties.hibernate.jpa.show-sql: "true"
 spring.jpa.properties.hibernate.format_sql: "true"
 spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: "false"
 spring.jpa.database-platform: "org.hibernate.dialect.PostgreSQL9Dialect"
+
+#MQ
+spring.rabbitmq.host: "localhost"
+#spring.rabbitmq.host=${SPRING_RABBITMQ_HOST}
+spring.rabbitmq.port: "5672"
+spring.rabbitmq.username: "guest"
+spring.rabbitmq.password: "guest"
+queue.suporte.name: "SuporteQueue"
+
+
+logging.level.root: "INFO"
+logging.level.org.springframework.web: "INFO"
+logging.level.org.hibernate: "INFO"
+logging.level.org.apache.commons.dbcp2: "DEBUG"

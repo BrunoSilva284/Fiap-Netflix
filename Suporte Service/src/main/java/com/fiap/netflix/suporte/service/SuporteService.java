@@ -18,6 +18,9 @@ public class SuporteService  {
     @Autowired
     private TicketRepository ticketRepository;
 
+    @Autowired
+    private TicketQueueSender ticketQueueSender;
+
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public List<TicketConsulta> consultarChamadosByDesc(String desc){
@@ -34,7 +37,15 @@ public class SuporteService  {
     public String suporteReportarError(Problema body) {
         if(verificarDados(body)) {
             Ticket novoTicket = this.deParaProblema(body);
-            ticketRepository.save(novoTicket);
+            return ticketQueueSender.send(novoTicket) ? "OK" : "NOK";
+        } else {
+            return "ERR-1 Campos obrigatórios não informados.";
+        }
+    }
+
+    public String salvarTicket(Ticket ticket) {
+        if(verificarDadosTicket(ticket)) {
+            ticketRepository.save(ticket);
             return "OK";
         } else {
             return "ERR-1 Campos obrigatórios não informados.";
@@ -48,6 +59,25 @@ public class SuporteService  {
      */
     private boolean verificarDados(Problema param) {
         if(param.getDescricaoErro() == null || param.getDescricaoErro().isEmpty()){
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Verifica se os campos obrigatórios foram preenchidos
+     * @param param input do ticket
+     * @return booleana se itens ok ou não
+     */
+    private boolean verificarDadosTicket(Ticket param) {
+        if(param.getDescricaoErro() == null || param.getDescricaoErro().isEmpty()){
+            return false;
+        }
+        if(param.getDataCriacao() == null) {
+            return false;
+        }
+        if(param.getIdUsuario() == null || param.getIdUsuario() <= 0) {
             return false;
         }
 
