@@ -23,7 +23,7 @@ public class Ticket {
     @Column(name = "data_criacao")
     private Date dataCriacao;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Atendente atendente;
 
     public Long getId() {

@@ -41,16 +41,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<!-- Zuul -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+		</dependency>
 		<!-- Hystrix -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-		</dependency>
-		<!-- Swagger -->
-		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>${swagger-annotations-version}</version>
 		</dependency>
 		<!-- Config -->
 		<dependency>
@@ -78,67 +77,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>2.2.3</version>
-				<executions>
-					<execution>
-						<id>Suporte</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${basedir}/src/main/resources/swagger/suporte/suporte_api.yml</inputSpec>
-							<language>spring</language>
-							<apiPackage>com.fiap.netflix.gateway.suporte.api</apiPackage>
-							<modelPackage>com.fiap.netflix.gateway.suporte.model</modelPackage>
-							<generateSupportingFiles>false</generateSupportingFiles>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<!-- removing undesired generated files -->
-					<execution>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target>
-								<echo message="Removing undesired swagger files..." />
-								<delete>
-									<fileset dir="${project.build.directory}/generated-sources/swagger"
-											 includes="**/*Controller.java" />
-								</delete>
-							</target>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${project.build.directory}/generated-sources/apigen/</source>
-								<source>${project.build.directory}/generated-sources/swagger/src/main/java/</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

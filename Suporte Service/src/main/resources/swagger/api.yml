@@ -10,7 +10,6 @@ info:
   '
   version: "1.0.0"
   title: "TCD - Netflix"
-basePath: "/v1"
 tags:
   - name: "suporte"
     description: "Relatar problemas que podem estar acontecendo."
@@ -26,6 +25,7 @@ paths:
       tags:
         - "suporte"
       summary: "Cria um novo chamado para a equipe de suporte."
+      operationId: "suporteReportarPost"
       consumes:
         - "application/json"
       produces:
@@ -44,6 +44,29 @@ paths:
             type: "string"
         "405":
           description: "Invalid input"
+  /suporte/consultarByDesc:
+    get:
+      tags:
+        - "suporte"
+      summary: "Consulta chamados que contenham o texto."
+      operationId: "suporteConsultarByDescGet"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "texto"
+          description: "Trecho de texto para consulta."
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Lista de problemas."
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/TicketConsulta'
+        "405":
+          description: "Invalid input"
 definitions:
   Problema:
     type: "object"
@@ -58,3 +81,27 @@ definitions:
         type: "integer"
         format: "int64"
         description: "Id do usuário que esta relatando o problema."
+  TicketConsulta:
+    type: "object"
+    properties:
+      idTicket:
+        type: "integer"
+        format: "int64"
+      idFilme:
+        type: "integer"
+        format: "int64"
+        description: "Id do filme em que ocorreu o problema."
+      idUsuario:
+        type: "integer"
+        format: "int64"
+        description: "Id do usuário que esta relatando o problema."
+      descricaoErro:
+        type: "string"
+        description: "Descrição do problema."
+      dataCriacao:
+        type: "string"
+        description: "Data de criação."
+      idAtendente:
+        type: "integer"
+        format: "int64"
+        description: "Id do atendente para resolver o problema."

@@ -1,18 +1,35 @@
 package com.fiap.netflix.suporte.service;
 
 import com.fiap.netflix.gateway.suporte.model.Problema;
+import com.fiap.netflix.gateway.suporte.model.TicketConsulta;
 import com.fiap.netflix.suporte.model.Ticket;
 import com.fiap.netflix.suporte.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SuporteService  {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+    public List<TicketConsulta> consultarChamadosByDesc(String desc){
+        List<TicketConsulta> consultas = new ArrayList<>();
+        List<Ticket> listaTicket = ticketRepository.consultarByDesc(desc);
+
+        for(Ticket ticket : listaTicket) {
+            consultas.add(deParaTicketConsulta(ticket));
+        }
+
+        return consultas;
+    }
 
     public String suporteReportarError(Problema body) {
         if(verificarDados(body)) {
@@ -26,8 +43,8 @@ public class SuporteService  {
 
     /**
      * Verifica se os campos obrigatórios foram preenchidos
-     * @param param
-     * @return
+     * @param param input dos problemas
+     * @return booleana se itens ok ou não
      */
     private boolean verificarDados(Problema param) {
         if(param.getDescricaoErro() == null || param.getDescricaoErro().isEmpty()){
@@ -39,8 +56,8 @@ public class SuporteService  {
 
     /**
      * Cria novo objeto Ticket com base no input para cadastro
-     * @param param
-     * @return
+     * @param param input dos problemas
+     * @return objeto ticket para persistência
      */
     private Ticket deParaProblema(Problema param){
         Ticket ticket = new Ticket();
@@ -50,5 +67,25 @@ public class SuporteService  {
         ticket.setDataCriacao(new Date());
 
         return ticket;
+    }
+
+    /**
+     * Cria novo objeto TicketConsulta com base no input vindo do banco de dados
+     * @param ticket retorno do banco de dados
+     * @return objeto ticket consulta para retornar
+     */
+    private TicketConsulta deParaTicketConsulta(Ticket ticket){
+        TicketConsulta ticketConsulta = new TicketConsulta();
+        ticketConsulta.setIdTicket(ticket.getId());
+        ticketConsulta.setIdFilme(ticket.getIdFilme());
+        ticketConsulta.setIdUsuario(ticket.getIdUsuario());
+        ticketConsulta.setDescricaoErro(ticket.getDescricaoErro());
+        ticketConsulta.setDataCriacao(this.simpleDateFormat.format(ticket.getDataCriacao()));
+
+        if(ticket.getAtendente() != null) {
+            ticketConsulta.setIdAtendente(ticket.getAtendente().getId());
+        }
+
+        return ticketConsulta;
     }
 }
