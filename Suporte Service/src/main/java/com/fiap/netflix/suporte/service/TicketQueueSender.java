@@ -17,7 +17,7 @@ public class TicketQueueSender {
 
     public boolean send(Ticket ticket) {
         try {
-            rabbitTemplate.convertAndSend(this.queue.getName(), ticket.getDescricaoErro());
+            rabbitTemplate.convertAndSend(this.queue.getName(), ticket);
             return true;
         } catch (Exception e){
             return false;

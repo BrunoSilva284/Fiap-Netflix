@@ -2,6 +2,7 @@ package com.fiap.netflix.suporte.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -73,5 +74,16 @@ public class Ticket implements Serializable {
 
     public void setAtendente(Atendente atendente) {
         this.atendente = atendente;
+    }
+
+    @Override
+    public String toString() {
+        return "[Ticket] -> " +
+                "[id=" + id + "], " +
+                "[idFilme=" + idFilme + "], " +
+                "[idUsuario=" + idUsuario + "], " +
+                "[descricaoErro=" + descricaoErro + "], " +
+                "[dataCriacao=" + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(dataCriacao) + "], " +
+                "[atendente=" + (atendente == null ? "0": atendente.getId()) + "]";
     }
 }
